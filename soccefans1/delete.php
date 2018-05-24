@@ -22,16 +22,16 @@
 <body class="text-center">
 <div class="divcss5">
 
-    <form action="get3.php" method="get">
+    <form action="get2.php" method="get">
 
-        <h1 class="h3 mb-3 font-weight-normal">Please input Team to increase wages players and team</h1>
-        <label for="Pounds" class="sr-only">Increase Wage</label>
-        <input type="text" id="Pounds" name="Pounds" class="form-control" placeholder="Teamname" required="" autofocus="" style="margin:12px">
+        <h1 class="h3 mb-3 font-weight-normal">Please delete specific ID</h1>
+        <label for="DeleteID" class="sr-only">ID</label>
+        <input type="text" id="DeleteID" name="DeleteID" class="form-control" placeholder="DeleteID" required="" autofocus="" style="margin:12px">
 
         <input type="submit">
         <p class="mt-5 mb-3 text-muted">2018年5月22日</p>
     </form>
 </div>
 
-
+<a href="info.php">Back to Home</a>
 </body></html>

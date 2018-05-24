@@ -40,13 +40,13 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="#">更新</a>
+                <a class="nav-link" href="update.php">更新</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">删除</a>
+                <a class="nav-link" href="delete.php">删除</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">添加</a>
+                <a class="nav-link" href="add.php">添加</a>
             </li>
 
         </ul>

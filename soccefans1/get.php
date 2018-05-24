@@ -69,5 +69,5 @@
 
         <a href="info.php">Back to Home</a>
 
-
+    <a href="info.php">Back to Home</a>
 </body>
