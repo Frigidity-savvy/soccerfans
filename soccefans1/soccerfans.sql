@@ -38,7 +38,7 @@ CREATE TABLE `essay` (
 
 LOCK TABLES `essay` WRITE;
 /*!40000 ALTER TABLE `essay` DISABLE KEYS */;
-INSERT INTO `essay` VALUES (20000,'Jack',10001),(20001,'Jack2',10001),(30000,'Jack4',10001);
+INSERT INTO `essay` VALUES (10000,'Champions',10000),(10001,'Champions',10000),(10002,'Champions',10000);
 /*!40000 ALTER TABLE `essay` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -51,11 +51,19 @@ UNLOCK TABLES;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 /*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 trigger tri_essayInsert after insert
-on essay for each row
+on  essay for each row
 begin
+DECLARE msg varchar(200); 
 declare c integer;
+if(new.essay_id<=0) then
+set msg = "essay_id needs to be more than 0.";  
+SIGNAL SQLSTATE 'HY000' SET MESSAGE_TEXT = msg;  
+else
 set c = (select count_essay from users where users.ID=new.author_id);
+
 update users set count_essay = c + 1 where users.ID = new.author_id;
+end if;
+
 end */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -75,8 +83,7 @@ CREATE TABLE `player` (
   `p_name` char(10) NOT NULL,
   `p_team` char(10) NOT NULL,
   `salary` int(6) DEFAULT NULL,
-  PRIMARY KEY (`p_id`),
-  KEY `p_name` (`p_name`),
+  PRIMARY KEY (`p_name`),
   KEY `fk_player` (`p_team`),
   CONSTRAINT `fk_player` FOREIGN KEY (`p_team`) REFERENCES `team` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -88,7 +95,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` VALUES ('001','Bale','Tottenham',90000);
+INSERT INTO `player` VALUES ('001','Bale','Tottenham',120000),('002','Kane','Tottenham',120000),('003','Loris','Tottenham',120000);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +120,7 @@ CREATE TABLE `team` (
 
 LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
-INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',100000);
+INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',120000);
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -145,7 +152,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (10001,'Shirley',19,'Chelsea','Bale',3);
+INSERT INTO `users` VALUES (10000,'Kevin',20,'Tottenham','Bale',3),(10001,'Shirley',19,'Chelsea','Bale',0),(10002,'Jack',20,'Tottenham','Bale',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,4 +198,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-25 16:42:37
+-- Dump completed on 2018-05-28 21:04:43
