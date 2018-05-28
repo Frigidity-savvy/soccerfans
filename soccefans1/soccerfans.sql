@@ -95,7 +95,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` VALUES ('001','Bale','Tottenham',140000),('002','Kane','Tottenham',140000),('003','Loris','Tottenham',140000);
+INSERT INTO `player` VALUES ('001','Bale','Tottenham',150000),('002','Kane','Tottenham',150000),('003','Loris','Tottenham',150000);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `team` (
 
 LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
-INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',140000);
+INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',150000);
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -172,6 +172,33 @@ SET character_set_client = utf8;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Dumping routines for database 'soccerfans'
+--
+/*!50003 DROP PROCEDURE IF EXISTS `elevate_wage` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `elevate_wage`(in teamname char(10))
+BEGIN   
+update player,team
+set player.salary=player.salary+10000,
+team.avg_increase_wage=avg_increase_wage+10000
+where teamname=player.p_team and player.p_team=team.name;
+  
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
 -- Final view structure for view `users_team`
 --
 
@@ -198,4 +225,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-28 21:29:33
+-- Dump completed on 2018-05-28 21:43:08
