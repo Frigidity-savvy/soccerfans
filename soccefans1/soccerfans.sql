@@ -95,7 +95,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` VALUES ('001','Bale','Tottenham',120000),('002','Kane','Tottenham',120000),('003','Loris','Tottenham',120000);
+INSERT INTO `player` VALUES ('001','Bale','Tottenham',140000),('002','Kane','Tottenham',140000),('003','Loris','Tottenham',140000);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `team` (
 
 LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
-INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',120000);
+INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',140000);
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -198,4 +198,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-28 21:04:43
+-- Dump completed on 2018-05-28 21:29:33
