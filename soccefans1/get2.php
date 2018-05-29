@@ -39,7 +39,7 @@
     $result10 = $mysqli->query($sql_show);
     while($row=mysqli_fetch_assoc($result10))//将result结果集中查询结果取出一条
     {
-        echo"<tr><td>".$row["essay_id"]."</td><td>".$row["essay_name"]."</td><td>".$row["author_id"]."</td><tr>";
+        echo"<tr><td>".$row["essay_id"]."</td><td>".$row["essay_name"]."</td><td>".$row["author_id"]."</td><td>'BEFORE''</td><tr>";
 
     }
 
@@ -52,12 +52,18 @@
     $sql1 = "delete from essay where author_id=$DeleteID;";
     $sql3 = "commit;";
     $sql2= "delete from users where ID=$DeleteID;";
-
+    $sql4="Rollback;";
     $result = $mysqli->query($sql);
     $result1 = $mysqli->query($sql1);
     $result2 = $mysqli->query($sql2);
+    if(($result1!=NULL)&&($result2!=NULL))
+    {
     $result3= $mysqli->query($sql3);
-
+    }
+    else
+    {
+        $result4=$mysqli->query($sql4);
+    }
     $result11= $mysqli->query($sql_show);
     while($row1=mysqli_fetch_assoc($result11))//将result结果集中查询结果取出一条
     {

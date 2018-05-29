@@ -23,21 +23,14 @@
         $inputID=$_GET["inputID"];
         $inputEssay_name=$_GET["inputEssay_name"];
         $inputAuthor_id=$_GET["inputAuthor_id"];
-    if(isset($inputID,$inputEssay_name,$inputAuthor_id))
-    {
-         echo "Succeessfully summit <br>";
-    }
-    else
-    {
-        echo "Failed <br>";
-    }
+
 
 
 
     $mysqli = new mysqli('localhost', 'root', 'tyc19981002', 'soccerfans');
     //连接数据库
 
-    $sql="insert into essay(essay_id,essay_name,author_id) values($inputID,'$inputEssay_name',$inputAuthor_id);";//设置查询指令
+    $sql="insert into essay(essay_id,essay_name,author_id) values($inputID,'$inputEssay_name',$inputAuthor_id);";
 
     $sql1="select * from essay where essay_id=$inputID;";
     $sql2="select  * from users where ID= $inputAuthor_id;";
@@ -48,7 +41,7 @@
     }
 
 
-    $result = $mysqli->query($sql);//执行查询while($row=mysqli_fetch_assoc($result))//将result结果集中查询结果取出一条
+    $result = $mysqli->query($sql);
     $result1 = $mysqli->query($sql1);
     $result3= $mysqli->query($sql2);
 
