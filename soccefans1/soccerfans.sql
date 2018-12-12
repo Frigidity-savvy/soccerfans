@@ -38,7 +38,7 @@ CREATE TABLE `essay` (
 
 LOCK TABLES `essay` WRITE;
 /*!40000 ALTER TABLE `essay` DISABLE KEYS */;
-INSERT INTO `essay` VALUES (10000,'Champions',10000),(10001,'Champions',10000),(10002,'Champions',10000);
+INSERT INTO `essay` VALUES (10000,'Champions',10000),(10001,'Champions',10000),(10002,'Champions',10000),(50000,'Hero',10001),(70000,'tyc',10000);
 /*!40000 ALTER TABLE `essay` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -95,7 +95,7 @@ CREATE TABLE `player` (
 
 LOCK TABLES `player` WRITE;
 /*!40000 ALTER TABLE `player` DISABLE KEYS */;
-INSERT INTO `player` VALUES ('001','Bale','Tottenham',150000),('002','Kane','Tottenham',150000),('003','Loris','Tottenham',150000);
+INSERT INTO `player` VALUES ('001','Bale','Tottenham',160000),('002','Kane','Tottenham',160000),('003','Loris','Tottenham',160000);
 /*!40000 ALTER TABLE `player` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `team` (
 
 LOCK TABLES `team` WRITE;
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
-INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',150000);
+INSERT INTO `team` VALUES ('Arsenal','England',50000),('Burnley','England',50000),('Chelsea','England',50000),('Everton','England',50000),('Leichester','England',50000),('Liverpool','England',50000),('ManCity','England',50000),('ManUnited','England',50000),('Newcastle','England',50000),('Tottenham','England',160000);
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +152,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (10000,'Kevin',20,'Tottenham','Bale',3),(10001,'Shirley',19,'Chelsea','Bale',0),(10002,'Jack',20,'Tottenham','Bale',1);
+INSERT INTO `users` VALUES (10000,'Kevin',20,'Tottenham','Bale',4),(10001,'Shirley',19,'Chelsea','Bale',1),(10002,'Jack',20,'Tottenham','Bale',1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,11 +185,17 @@ SET character_set_client = @saved_cs_client;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `elevate_wage`(in teamname char(10))
-BEGIN   
+BEGIN
+DECLARE msg varchar(200); 
+if(teamname='Tottenham') then
 update player,team
 set player.salary=player.salary+10000,
 team.avg_increase_wage=avg_increase_wage+10000
-where teamname=player.p_team and player.p_team=team.name;
+where player.p_team=team.name and teamname=player.p_team;
+else
+set msg = "only Tottenham deserves wage up.";  
+SIGNAL SQLSTATE 'HY000' SET MESSAGE_TEXT = msg; 
+end if;
   
 END ;;
 DELIMITER ;
@@ -225,4 +231,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-28 21:43:08
+-- Dump completed on 2018-05-29 16:58:26
